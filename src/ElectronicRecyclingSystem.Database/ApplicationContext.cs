@@ -5,5 +5,5 @@ namespace ElectronicRecyclingSystem.Database;
 
 public class ApplicationContext(DbContextOptions options) : DbContext(options)
 {
-    public DbSet<DeliveryApplicationDto>? DeliveryApplicationDtos { get; set; }
+    public required DbSet<DeliveryApplicationDto> DeliveryApplicationDtos { get; init; }
 }

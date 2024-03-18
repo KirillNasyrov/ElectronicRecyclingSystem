@@ -11,7 +11,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ElectronicRecyclingSystem.Database.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20240318122409_Initial")]
+    [Migration("20240318215014_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -26,25 +26,22 @@ namespace ElectronicRecyclingSystem.Database.Migrations
 
             modelBuilder.Entity("ElectronicRecyclingSystem.Database.Models.DeliveryApplicationDto", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("bigint");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
                     b.Property<int>("CategoryId")
                         .HasColumnType("integer");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Image")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<double>("Price")

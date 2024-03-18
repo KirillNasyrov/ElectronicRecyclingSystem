@@ -1,5 +1,6 @@
 using System;
 using ElectronicRecyclingSystem.Database;
+using ElectronicRecyclingSystem.Domain.Services.DeliveryApplicationService;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,6 +20,8 @@ var connectionString = builder.Configuration.GetConnectionString("PostgresConnec
                        throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
 builder.Services.AddPostgres(connectionString);
+
+builder.Services.AddScoped<IDeliveryApplicationService, DeliveryApplicationService>();
 
 var app = builder.Build();
 
