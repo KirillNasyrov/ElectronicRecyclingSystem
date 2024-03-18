@@ -6,7 +6,7 @@ services:
     container_name: local-postgres
     environment:
       - "POSTGRES_USER=postgres"
-      - "POSTGRES_DB=homework-6"
+      - "POSTGRES_DB=electronic-recycling-system"
       - "POSTGRES_HOST_AUTH_METHOD=trust"
     ports:
       - "15432:5432"
