@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{D97DE74A-2D27-460C-A3BC-424BDB3C29FD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElectronicRecyclingSystem", "src/ElectronicRecyclingSystem\ElectronicRecyclingSystem.csproj", "{1D454F8C-BE03-4003-994A-A9E3B2DD5F9D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "common", "common", "{68B7525C-1ACA-4097-83A4-585FF1817463}"
+	ProjectSection(SolutionItems) = preProject
+		Directory.Build.props = Directory.Build.props
+		Directory.Packages.props = Directory.Packages.props
+		docker-compose.yaml = docker-compose.yaml
+		.gitignore = .gitignore
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{57098901-ED59-4901-86FD-03F8EFC50C80}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "frontend", "frontend", "{54C4C6E9-8886-4620-BDDC-8F5429F794CA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElectronicRecyclingSystem.Client", "frontend\ElectronicRecyclingSystem.Client\ElectronicRecyclingSystem.Client.csproj", "{634739AF-AB67-4603-A023-45EC654920FF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1D454F8C-BE03-4003-994A-A9E3B2DD5F9D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D454F8C-BE03-4003-994A-A9E3B2DD5F9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D454F8C-BE03-4003-994A-A9E3B2DD5F9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D454F8C-BE03-4003-994A-A9E3B2DD5F9D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{634739AF-AB67-4603-A023-45EC654920FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{634739AF-AB67-4603-A023-45EC654920FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{634739AF-AB67-4603-A023-45EC654920FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{634739AF-AB67-4603-A023-45EC654920FF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1D454F8C-BE03-4003-994A-A9E3B2DD5F9D} = {D97DE74A-2D27-460C-A3BC-424BDB3C29FD}
+		{634739AF-AB67-4603-A023-45EC654920FF} = {54C4C6E9-8886-4620-BDDC-8F5429F794CA}
+	EndGlobalSection
+EndGlobal
