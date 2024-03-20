@@ -1,7 +1,8 @@
 using System.Collections.Immutable;
 using System.Linq;
 using ElectronicRecyclingSystem.Controllers.DeliveryApplications.Models.GetDeliveryApplications;
-using ElectronicRecyclingSystem.Domain.Models.GetDeliveryApplications;
+using ElectronicRecyclingSystem.Domain.Features.GetDeliveryApplications;
+using ElectronicRecyclingSystem.Domain.Models;
 
 namespace ElectronicRecyclingSystem.Controllers.DeliveryApplications.Mappings;
 
@@ -25,10 +26,9 @@ public static class GetDeliveryApplicationsMappings
     }
 
     private static DeliveryApplicationResponse MapToResponse(
-        this DeliveryApplicationInfo deliveryApplicationInfo)
+        this DeliveryApplication deliveryApplicationInfo)
     {
         return new DeliveryApplicationResponse(
-            Id: deliveryApplicationInfo.Id,
             Name: deliveryApplicationInfo.Name,
             Description: deliveryApplicationInfo.Description,
             CategoryId: deliveryApplicationInfo.CategoryId,

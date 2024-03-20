@@ -21,11 +21,12 @@ namespace ElectronicRecyclingSystem.Database.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("ElectronicRecyclingSystem.Database.Models.DeliveryApplicationDto", b =>
+            modelBuilder.Entity("ElectronicRecyclingSystem.Database.Features.DeliveryApplicationDto", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("bigint")
+                        .HasColumnName("delivery_application_id");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
@@ -49,7 +50,7 @@ namespace ElectronicRecyclingSystem.Database.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("DeliveryApplicationDtos");
+                    b.ToTable("delivery_applications");
                 });
 #pragma warning restore 612, 618
         }

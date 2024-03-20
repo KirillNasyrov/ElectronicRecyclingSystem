@@ -1,36 +1,36 @@
-using System.Collections.Immutable;
-using ElectronicRecyclingSystem.Database;
-using ElectronicRecyclingSystem.Domain.DeliveryApplication;
-using ElectronicRecyclingSystem.Domain.Models.CreateDeliveryApplication;
-using ElectronicRecyclingSystem.Domain.Models.GetDeliveryApplications;
-using Microsoft.EntityFrameworkCore;
+using System.Threading;
+using System.Threading.Tasks;
+using ElectronicRecyclingSystem.Domain.Features.CreateDeliveryApplication;
+using ElectronicRecyclingSystem.Domain.Features.GetDeliveryApplications;
+using ElectronicRecyclingSystem.Domain.Models;
+using ElectronicRecyclingSystem.Domain.Repositories;
 
 namespace ElectronicRecyclingSystem.Domain.Services.DeliveryApplicationService;
 
 public class DeliveryApplicationService : IDeliveryApplicationService
 {
-    private readonly ApplicationContext _applicationContext;
+    private readonly IDeliveryApplicationRepository _deliveryApplicationRepository;
 
-    public DeliveryApplicationService(ApplicationContext applicationContext)
+    public DeliveryApplicationService(IDeliveryApplicationRepository deliveryApplicationRepository)
     {
-        _applicationContext = applicationContext;
+        _deliveryApplicationRepository = deliveryApplicationRepository;
     }
-    
+
     public async Task<GetDeliveryApplicationsResult> GetDeliveryApplicationsAsync(
-        GetDeliveryApplicationsQuery query)
+        GetDeliveryApplicationsQuery query,
+        CancellationToken cancellationToken)
     {
-        var result = await _applicationContext.DeliveryApplicationDtos.ToListAsync();
-        return new GetDeliveryApplicationsResult(
-            DeliveryApplications: result.Select(
-                dto => dto.MapToDeliveryApplicationInfo()).ToImmutableArray());
+        var skip = (query.PageNumber - 1) * query.PageSize;
+        var take = query.PageSize;
+        var deliveryApplications = await _deliveryApplicationRepository.Get(skip, take, cancellationToken);
+        return new GetDeliveryApplicationsResult(deliveryApplications);
     }
     
     public async Task<CreateDeliveryApplicationResult> CreateDeliveryApplicationAsync(
-        CreateDeliveryApplicationCommand command)
+        DeliveryApplication deliveryApplication,
+        CancellationToken cancellationToken)
     {
-        var dto = command.MapToDto();
-        var result = await _applicationContext.DeliveryApplicationDtos.AddAsync(dto);
-        await _applicationContext.SaveChangesAsync();
-        return new CreateDeliveryApplicationResult(result.Entity.Id);
+        var result = await _deliveryApplicationRepository.Add(deliveryApplication, cancellationToken);
+        return new CreateDeliveryApplicationResult(result);
     }
 }

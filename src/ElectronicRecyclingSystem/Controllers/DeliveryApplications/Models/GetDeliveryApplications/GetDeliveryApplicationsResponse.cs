@@ -6,7 +6,6 @@ public record GetDeliveryApplicationsResponse(
     ImmutableArray<DeliveryApplicationResponse> DeliveryApplications);
     
 public record DeliveryApplicationResponse(
-    long Id,
     string? Name,
     string? Description,
     int CategoryId,

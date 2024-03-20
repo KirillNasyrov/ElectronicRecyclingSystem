@@ -1,0 +1,8 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <ItemGroup>
+      <ProjectReference Include="..\ElectronicRecyclingSystem.Database\ElectronicRecyclingSystem.Database.csproj" />
+      <ProjectReference Include="..\ElectronicRecyclingSystem.Domain\ElectronicRecyclingSystem.Domain.csproj" />
+    </ItemGroup>
+
+</Project>

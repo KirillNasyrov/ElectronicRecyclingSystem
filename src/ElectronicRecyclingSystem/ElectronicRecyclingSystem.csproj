@@ -14,6 +14,7 @@
       <ProjectReference Include="..\..\frontend\ElectronicRecyclingSystem.Client\ElectronicRecyclingSystem.Client.csproj" />
       <ProjectReference Include="..\ElectronicRecyclingSystem.Database\ElectronicRecyclingSystem.Database.csproj" />
       <ProjectReference Include="..\ElectronicRecyclingSystem.Domain\ElectronicRecyclingSystem.Domain.csproj" />
+      <ProjectReference Include="..\ElectronicRecyclingSystem.Infrastructure\ElectronicRecyclingSystem.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>

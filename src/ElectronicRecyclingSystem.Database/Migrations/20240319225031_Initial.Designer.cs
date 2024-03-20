@@ -11,7 +11,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ElectronicRecyclingSystem.Database.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20240318215014_Initial")]
+    [Migration("20240319225031_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -28,7 +28,8 @@ namespace ElectronicRecyclingSystem.Database.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("bigint")
+                        .HasColumnName("delivery_application_id");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
@@ -52,7 +53,7 @@ namespace ElectronicRecyclingSystem.Database.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("DeliveryApplicationDtos");
+                    b.ToTable("delivery_applications");
                 });
 #pragma warning restore 612, 618
         }

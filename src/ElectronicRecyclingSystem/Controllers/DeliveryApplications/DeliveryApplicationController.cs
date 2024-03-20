@@ -26,16 +26,17 @@ public class DeliveryApplicationController : ControllerBase
         CancellationToken cancellationToken)
     {
         var query = request.MapToModel();
-        var result = await _deliveryApplicationService.GetDeliveryApplicationsAsync(query);
+        var result = await _deliveryApplicationService.GetDeliveryApplicationsAsync(query, cancellationToken);
         return result.MapToResponse();
     }
 
     [HttpPost("applications")]
     public async Task<IActionResult> CreateDeliveryApplication(
-        [FromBody] CreateDeliveryApplicationRequest request)
+        [FromBody] CreateDeliveryApplicationRequest request,
+        CancellationToken cancellationToken)
     {
         var command = request.MapToModel();
-        var result = await _deliveryApplicationService.CreateDeliveryApplicationAsync(command);
+        var result = await _deliveryApplicationService.CreateDeliveryApplicationAsync(command, cancellationToken);
         if (result.IsSuccess)
         {
             return Ok(result.DeliveryApplicationId);

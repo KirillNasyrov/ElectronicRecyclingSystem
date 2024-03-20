@@ -1,6 +1,8 @@
 using System;
 using ElectronicRecyclingSystem.Database;
+using ElectronicRecyclingSystem.Domain.Repositories;
 using ElectronicRecyclingSystem.Domain.Services.DeliveryApplicationService;
+using ElectronicRecyclingSystem.Infrastructure.Repositories.DeliveryApplications;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,6 +24,7 @@ var connectionString = builder.Configuration.GetConnectionString("PostgresConnec
 builder.Services.AddPostgres(connectionString);
 
 builder.Services.AddScoped<IDeliveryApplicationService, DeliveryApplicationService>();
+builder.Services.AddScoped<IDeliveryApplicationRepository, DeliveryApplicationRepository>();
 
 var app = builder.Build();
 

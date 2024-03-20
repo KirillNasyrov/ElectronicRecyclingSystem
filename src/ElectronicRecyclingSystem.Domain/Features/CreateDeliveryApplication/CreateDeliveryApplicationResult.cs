@@ -1,4 +1,4 @@
-namespace ElectronicRecyclingSystem.Domain.Models.CreateDeliveryApplication;
+namespace ElectronicRecyclingSystem.Domain.Features.CreateDeliveryApplication;
 
 public record CreateDeliveryApplicationResult(
     bool IsSuccess,

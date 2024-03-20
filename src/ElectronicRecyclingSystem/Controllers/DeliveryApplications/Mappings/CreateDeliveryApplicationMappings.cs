@@ -1,14 +1,14 @@
 using ElectronicRecyclingSystem.Controllers.DeliveryApplications.Models.CreateDeliveryApplication;
-using ElectronicRecyclingSystem.Domain.Models.CreateDeliveryApplication;
+using ElectronicRecyclingSystem.Domain.Models;
 
 namespace ElectronicRecyclingSystem.Controllers.DeliveryApplications.Mappings;
 
 public static class CreateDeliveryApplicationMappings
 {
-    public static CreateDeliveryApplicationCommand MapToModel(
+    public static DeliveryApplication MapToModel(
         this CreateDeliveryApplicationRequest request)
     {
-        return new CreateDeliveryApplicationCommand(
+        return new DeliveryApplication(
             Name: request.Name,
             Description: request.Description,
             CategoryId: request.CategoryId,

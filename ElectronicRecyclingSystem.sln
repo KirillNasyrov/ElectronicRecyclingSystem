@@ -22,6 +22,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElectronicRecyclingSystem.D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElectronicRecyclingSystem.Domain", "src\ElectronicRecyclingSystem.Domain\ElectronicRecyclingSystem.Domain.csproj", "{64E08743-1F31-4930-9B0F-6BFBA4F21578}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ElectronicRecyclingSystem.Infrastructure", "src\ElectronicRecyclingSystem.Infrastructure\ElectronicRecyclingSystem.Infrastructure.csproj", "{55B4D476-8730-448D-9064-F33C29DC3A85}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,11 +46,16 @@ Global
 		{64E08743-1F31-4930-9B0F-6BFBA4F21578}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{64E08743-1F31-4930-9B0F-6BFBA4F21578}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{64E08743-1F31-4930-9B0F-6BFBA4F21578}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55B4D476-8730-448D-9064-F33C29DC3A85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55B4D476-8730-448D-9064-F33C29DC3A85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55B4D476-8730-448D-9064-F33C29DC3A85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55B4D476-8730-448D-9064-F33C29DC3A85}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{1D454F8C-BE03-4003-994A-A9E3B2DD5F9D} = {D97DE74A-2D27-460C-A3BC-424BDB3C29FD}
 		{634739AF-AB67-4603-A023-45EC654920FF} = {54C4C6E9-8886-4620-BDDC-8F5429F794CA}
 		{949496B3-26E4-43DB-817A-348C1EFEC931} = {D97DE74A-2D27-460C-A3BC-424BDB3C29FD}
 		{64E08743-1F31-4930-9B0F-6BFBA4F21578} = {D97DE74A-2D27-460C-A3BC-424BDB3C29FD}
+		{55B4D476-8730-448D-9064-F33C29DC3A85} = {D97DE74A-2D27-460C-A3BC-424BDB3C29FD}
 	EndGlobalSection
 EndGlobal

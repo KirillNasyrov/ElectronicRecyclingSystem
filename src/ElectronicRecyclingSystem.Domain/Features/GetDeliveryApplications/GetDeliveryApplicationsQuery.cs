@@ -1,4 +1,4 @@
-namespace ElectronicRecyclingSystem.Domain.Models.GetDeliveryApplications;
+namespace ElectronicRecyclingSystem.Domain.Features.GetDeliveryApplications;
 
 public record GetDeliveryApplicationsQuery(
     int PageNumber = 1,
