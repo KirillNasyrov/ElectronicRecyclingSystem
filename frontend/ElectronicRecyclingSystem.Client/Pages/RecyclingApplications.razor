@@ -1,0 +1,44 @@
+@page "/"
+@using System.Globalization
+@inherits RecyclingApplicationsBase
+
+@if (RecyclingApplications == null)
+{
+    <h3>Loading products...</h3>
+}
+else
+{
+    <h3 class="mb-5"> Applications </h3>
+
+    @if (RecyclingApplications.Length > 0)
+    {
+        <div class="container">
+            @foreach (var application in RecyclingApplications)
+            {
+                <div class="row-cols-1 mb-3">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="row">
+                                <h5 class="col"> Application from @GetStringDate(application.CreatedAtUtc) </h5>
+                                <p class="col text-end"> paid 1337 ₽</p>
+                            </div>
+                            <h6 class="text-primary"> application number: @application.Id</h6>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text"> Status: @application.Status</p>
+                            <p class="card-text"> Closed: @GetStringDate(application.CreatedAtUtc)</p>
+                            <a href="#" class="btn btn-primary">Check out</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+}
+
+@code {
+    string GetStringDate(DateTime dateTime)
+    {
+        return $"{dateTime.Day} of {dateTime.ToString("MMMM", new CultureInfo("en-US"))}";
+    }
+}

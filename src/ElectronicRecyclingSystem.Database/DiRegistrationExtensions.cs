@@ -5,9 +5,11 @@ namespace ElectronicRecyclingSystem.Database;
 
 public static class DiRegistrationExtensions
 {
-    public static IServiceCollection AddPostgres(this IServiceCollection services, string connectionString)
+    public static IServiceCollection AddPostgres(
+        this IServiceCollection services,
+        string connectionString)
     {
-        services.AddDbContext<ApplicationContext>(options =>
+        services.AddDbContext<ApplicationDbContext>(options =>
             options.UseNpgsql(connectionString));
 
         return services;

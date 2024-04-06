@@ -1,17 +1,17 @@
 using System;
 using ElectronicRecyclingSystem.Database;
 using ElectronicRecyclingSystem.Domain.Repositories;
-using ElectronicRecyclingSystem.Domain.Services.DeliveryApplicationService;
-using ElectronicRecyclingSystem.Infrastructure.Repositories.DeliveryApplications;
+using ElectronicRecyclingSystem.Domain.Services.RecyclingApplicationService;
+using ElectronicRecyclingSystem.Infrastructure.Repositories.RecyclingApplications;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Net.Http.Headers;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllersWithViews();
-builder.Services.AddRazorPages();
+builder.Services.AddControllers();
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -23,8 +23,8 @@ var connectionString = builder.Configuration.GetConnectionString("PostgresConnec
 
 builder.Services.AddPostgres(connectionString);
 
-builder.Services.AddScoped<IDeliveryApplicationService, DeliveryApplicationService>();
-builder.Services.AddScoped<IDeliveryApplicationRepository, DeliveryApplicationRepository>();
+builder.Services.AddScoped<IRecyclingApplicationService, RecyclingApplicationService>();
+builder.Services.AddScoped<IRecyclingApplicationRepository, RecyclingApplicationRepository>();
 
 var app = builder.Build();
 
@@ -33,16 +33,17 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-    app.UseWebAssemblyDebugging();
 }
 
+app.UseCors(policy => policy.WithOrigins(
+    "http://localhost:7156",
+    "https://localhost:7156")
+    .AllowAnyMethod()
+    .WithHeaders(HeaderNames.ContentType));
+
 app.UseHttpsRedirection();
-app.UseBlazorFrameworkFiles();
-app.UseStaticFiles();
 app.UseAuthorization();
 
-app.MapRazorPages();
 app.MapControllers();
-app.MapFallbackToFile("index.html");
 
 app.Run();
