@@ -4,7 +4,7 @@ using ElectronicRecyclingSystem.Client.Contracts.RecyclingApplications.Models.Ge
 using ElectronicRecyclingSystem.Client.Services;
 using Microsoft.AspNetCore.Components;
 
-namespace ElectronicRecyclingSystem.Client.Pages;
+namespace ElectronicRecyclingSystem.Client.Pages.Bases;
 
 public class RecyclingApplicationsBase : ComponentBase
 {

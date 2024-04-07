@@ -1,7 +1,10 @@
 using System;
 using ElectronicRecyclingSystem.Database;
 using ElectronicRecyclingSystem.Domain.Repositories;
+using ElectronicRecyclingSystem.Domain.Services.RecyclingApplicationItemService;
 using ElectronicRecyclingSystem.Domain.Services.RecyclingApplicationService;
+using ElectronicRecyclingSystem.Infrastructure.Repositories.ElectronicDevices;
+using ElectronicRecyclingSystem.Infrastructure.Repositories.RecyclingApplicationItems;
 using ElectronicRecyclingSystem.Infrastructure.Repositories.RecyclingApplications;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
@@ -25,6 +28,11 @@ builder.Services.AddPostgres(connectionString);
 
 builder.Services.AddScoped<IRecyclingApplicationService, RecyclingApplicationService>();
 builder.Services.AddScoped<IRecyclingApplicationRepository, RecyclingApplicationRepository>();
+
+builder.Services.AddScoped<IRecyclingApplicationItemRepository, RecyclingApplicationItemRepository>();
+builder.Services.AddScoped<IRecyclingApplicationItemService, RecyclingApplicationItemService>();
+
+builder.Services.AddScoped<IElectronicDeviceRepository, ElectronicDeviceRepository>();
 
 var app = builder.Build();
 

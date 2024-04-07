@@ -33,6 +33,16 @@ public class RecyclingApplicationRepository : IRecyclingApplicationRepository
         return result;
     }
 
+    public async Task<RecyclingApplication> Get(
+        long id,
+        CancellationToken cancellationToken)
+    {
+        var dto = await _applicationDbContext.RecyclingApplicationDtos.FindAsync(
+            [id],
+            cancellationToken: cancellationToken);
+        return dto!.MapToModel();
+    }
+
     public async Task<long> Add(
         RecyclingApplication recyclingApplication,
         CancellationToken cancellationToken)

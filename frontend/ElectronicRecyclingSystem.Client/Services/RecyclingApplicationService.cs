@@ -19,9 +19,23 @@ public class RecyclingApplicationService : IRecyclingApplicationService
         try
         {
             var response = await _httpClient.PutAsJsonAsync("applications", new object());
-            //var applications = await _httpClient.GetFromJsonAsync<GetRecyclingApplicationsResponse>("applications");
             var applications = await response.Content.ReadFromJsonAsync<GetRecyclingApplicationsResponse>();
             return applications!;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
+
+    public async Task<RecyclingApplicationResponse> GetApplication(long id)
+    {
+        try
+        {
+            var response = await _httpClient.GetAsync($"applications/{id}");
+            var application = await response.Content.ReadFromJsonAsync<RecyclingApplicationResponse>();
+            return application!;
         }
         catch (Exception e)
         {

@@ -1,6 +1,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using ElectronicRecyclingSystem.Domain.Features.CreateRecyclingApplication;
+using ElectronicRecyclingSystem.Domain.Features.GetRecyclingApplication;
 using ElectronicRecyclingSystem.Domain.Features.GetRecyclingApplications;
 using ElectronicRecyclingSystem.Domain.Models;
 using ElectronicRecyclingSystem.Domain.Repositories;
@@ -24,6 +25,14 @@ public class RecyclingApplicationService : IRecyclingApplicationService
         var take = query.PageSize;
         var recyclingApplications = await _recyclingApplicationRepository.Get(skip, take, cancellationToken);
         return new GetRecyclingApplicationsResult(recyclingApplications);
+    }
+    
+    public async Task<GetRecyclingApplicationResult> GetRecyclingApplicationAsync(
+        long id,
+        CancellationToken cancellationToken)
+    {
+        var recyclingApplication = await _recyclingApplicationRepository.Get(id, cancellationToken);
+        return new GetRecyclingApplicationResult(recyclingApplication);
     }
     
     public async Task<CreateRecyclingApplicationResult> CreateRecyclingApplicationAsync(

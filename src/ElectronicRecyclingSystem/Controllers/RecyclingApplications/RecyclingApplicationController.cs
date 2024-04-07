@@ -45,34 +45,12 @@ public class RecyclingApplicationController : ControllerBase
         return BadRequest();
     }
     
-    [HttpPost("/close")]
-    public void CloseRecyclingApplication(
-        [FromBody] CreateRecyclingApplicationRequest request,
+    [HttpGet("{id:long}")]
+    public async Task<RecyclingApplicationResponse> GetRecyclingApplication(
+        long id,
         CancellationToken cancellationToken)
     {
-        
-    }
-    
-    [HttpPost("/edit")]
-    public void EditRecyclingApplication(
-        [FromBody] CreateRecyclingApplicationRequest request,
-        CancellationToken cancellationToken)
-    {
-        
-    }
-    
-    [HttpPost("/get-by-user")]
-    public void UserRecyclingApplication(
-        [FromBody] CreateRecyclingApplicationRequest request,
-        CancellationToken cancellationToken)
-    {
-        
-    }
-    [HttpDelete("")]
-    public void DelRecyclingApplication(
-        [FromBody] CreateRecyclingApplicationRequest request,
-        CancellationToken cancellationToken)
-    {
-        
+        var result = await _recyclingApplicationService.GetRecyclingApplicationAsync(id, cancellationToken);
+        return result.MapToResponse();
     }
 }

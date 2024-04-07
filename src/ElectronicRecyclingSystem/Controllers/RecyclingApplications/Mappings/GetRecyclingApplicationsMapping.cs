@@ -1,13 +1,11 @@
 using System.Collections.Immutable;
 using System.Linq;
-using ElectronicRecyclingSystem.Controllers.Common.Mappings;
 using ElectronicRecyclingSystem.Controllers.RecyclingApplications.Models.GetRecyclingApplications;
 using ElectronicRecyclingSystem.Domain.Features.GetRecyclingApplications;
-using ElectronicRecyclingSystem.Domain.Models;
 
 namespace ElectronicRecyclingSystem.Controllers.RecyclingApplications.Mappings;
 
-public static class GetRecyclingApplicationsMappings
+public static class GetRecyclingApplicationsMapping
 {
     public static GetRecyclingApplicationsQuery MapToModel(
         this GetRecyclingApplicationsRequest request)
@@ -24,15 +22,5 @@ public static class GetRecyclingApplicationsMappings
             result.RecyclingApplications
                 .Select(item => item.MapToResponse())
                 .ToImmutableArray());
-    }
-
-    private static RecyclingApplicationResponse MapToResponse(
-        this RecyclingApplication recyclingApplication)
-    {
-        return new RecyclingApplicationResponse(
-            Id: recyclingApplication.Id,
-            Status: recyclingApplication.Status.MapToResponse(),
-            CreatedAtUtc: recyclingApplication.CreatedAtUtc,
-            ClosedAtUtc: recyclingApplication.ClosedAtUtc);
     }
 }

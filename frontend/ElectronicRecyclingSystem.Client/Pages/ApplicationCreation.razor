@@ -1,0 +1,31 @@
+﻿@page "/create"
+
+<PageTitle>Add</PageTitle>
+
+<h1>Add electronic device</h1>
+
+<div class="input-group mb-3">
+    <label class="input-group-text" for="inputGroupSelect01">category</label>
+    <select class="form-select" id="inputGroupSelect01">
+        <option selected>Choose...</option>
+        <option value="1">Mobile Phones</option>
+        <option value="2">Laptops</option>
+        <option value="3">Cameras</option>
+        <option value="4">Monitors</option>
+        <option value="0">Other</option>
+    </select>
+</div>
+
+<div class="input-group flex-nowrap mb-3">
+    <span class="input-group-text" id="addon-wrapping-model">model</span>
+    <input type="text" class="form-control" placeholder="model" aria-label="model" aria-describedby="addon-wrapping">
+</div>
+
+<div class="input-group flex-nowrap mb-3">
+    <span class="input-group-text" id="addon-wrapping-quantity">quantity</span>
+    <input type="text" class="form-control" placeholder="quantity" aria-label="quantity" aria-describedby="addon-wrapping">
+</div>
+
+@code {
+    
+}

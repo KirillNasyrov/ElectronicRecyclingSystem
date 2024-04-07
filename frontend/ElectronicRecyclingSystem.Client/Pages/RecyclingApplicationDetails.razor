@@ -1,0 +1,28 @@
+@page "/applicationdetails/{RecyclingApplicationId:long}"
+@inherits ElectronicRecyclingSystem.Client.Pages.Bases.RecyclingApplicationDetailsBase
+
+@if (true)
+{
+    <div class="row">
+        <div class="col-md-6 mb-4">
+                   
+        </div>
+        <div class="col-md-6">
+            <h3> @Application?.Id</h3>
+            <p class="mb-4">@Application?.Status</p>
+            <p class="mb-4">
+                <b>
+                    @Application?.CreatedAtUtc
+                </b>
+            </p>
+            <div>
+            </div>
+        </div>
+
+    </div>
+}
+
+@code
+{
+    
+}

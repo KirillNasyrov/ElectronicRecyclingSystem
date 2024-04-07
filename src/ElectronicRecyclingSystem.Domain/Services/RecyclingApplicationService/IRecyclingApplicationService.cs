@@ -1,6 +1,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using ElectronicRecyclingSystem.Domain.Features.CreateRecyclingApplication;
+using ElectronicRecyclingSystem.Domain.Features.GetRecyclingApplication;
 using ElectronicRecyclingSystem.Domain.Features.GetRecyclingApplications;
 using ElectronicRecyclingSystem.Domain.Models;
 
@@ -12,6 +13,9 @@ public interface IRecyclingApplicationService
         GetRecyclingApplicationsQuery query,
         CancellationToken cancellationToken);
 
+    public Task<GetRecyclingApplicationResult> GetRecyclingApplicationAsync(
+        long id,
+        CancellationToken cancellationToken);
     public Task<CreateRecyclingApplicationResult> CreateRecyclingApplicationAsync(
         RecyclingApplication command,
         CancellationToken cancellationToken);

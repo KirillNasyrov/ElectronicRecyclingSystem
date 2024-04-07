@@ -1,6 +1,6 @@
 @page "/"
 @using System.Globalization
-@inherits RecyclingApplicationsBase
+@inherits ElectronicRecyclingSystem.Client.Pages.Bases.RecyclingApplicationsBase
 
 @if (RecyclingApplications == null)
 {
@@ -19,15 +19,17 @@ else
                     <div class="card">
                         <div class="card-header">
                             <div class="row">
-                                <h5 class="col"> Application from @GetStringDate(application.CreatedAtUtc) </h5>
-                                <p class="col text-end"> paid 1337 ₽</p>
+                                <h5 class="col"> <strong> Application from @GetStringDate(application.CreatedAtUtc) </strong> </h5>
+                                <p class="col text-end">
+                                    paid <small class="h5"> <strong> 1337 ₽ </strong> </small>
+                                </p>
                             </div>
                             <h6 class="text-primary"> application number: @application.Id</h6>
                         </div>
                         <div class="card-body">
-                            <p class="card-text"> Status: @application.Status</p>
+                            <p class="card-text" > Status: @application.Status</p>
                             <p class="card-text"> Closed: @GetStringDate(application.CreatedAtUtc)</p>
-                            <a href="#" class="btn btn-primary">Check out</a>
+                            <a href="/applicationdetails/@application.Id" class="btn btn-primary">Check out</a>
                         </div>
                     </div>
                 </div>

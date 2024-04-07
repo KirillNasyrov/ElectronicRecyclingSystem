@@ -3,7 +3,7 @@ using ElectronicRecyclingSystem.Domain.Models;
 
 namespace ElectronicRecyclingSystem.Controllers.RecyclingApplications.Mappings;
 
-public static class CreateRecyclingApplicationMappings
+public static class CreateRecyclingApplicationMapping
 {
     public static RecyclingApplication MapToModel(
         this CreateRecyclingApplicationRequest request)

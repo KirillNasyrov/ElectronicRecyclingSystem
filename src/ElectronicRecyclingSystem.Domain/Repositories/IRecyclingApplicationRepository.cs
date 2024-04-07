@@ -11,6 +11,10 @@ public interface IRecyclingApplicationRepository
         int skip,
         int take,
         CancellationToken cancellationToken);
+
+    Task<RecyclingApplication> Get(
+        long id,
+        CancellationToken cancellationToken);
     
     public Task<long> Add(
         RecyclingApplication recyclingApplication,

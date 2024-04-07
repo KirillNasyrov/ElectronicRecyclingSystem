@@ -9,7 +9,7 @@ public class ElectronicDeviceDto
     public long Id { get; set; }
     
     [Column("electronic_device_name")]
-    public string? Name { get; set; }
+    public required string Name { get; set; }
     
     [Column("category_id")]
     public int CategoryId { get; set; }

@@ -7,4 +7,5 @@ namespace ElectronicRecyclingSystem.Client.Services;
 public interface IRecyclingApplicationService
 {
     Task<GetRecyclingApplicationsResponse> GetApplications();
+    Task<RecyclingApplicationResponse> GetApplication(long id);
 }
