@@ -14,7 +14,7 @@ public static class AddRecyclingApplicationItemToApplicationMapping
             recyclingApplicationId,
             request.Name,
             request.Category.MapToModel(),
-            request.ImageUrl,
+            null,
             request.Quantity);
     }
 }

@@ -5,5 +5,9 @@
         <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" PrivateAssets="all"/>
         <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" />
     </ItemGroup>
+    
+    <ItemGroup>
+      <Folder Include="wwwroot\Images\MobilePhones\" />
+    </ItemGroup>
 
 </Project>

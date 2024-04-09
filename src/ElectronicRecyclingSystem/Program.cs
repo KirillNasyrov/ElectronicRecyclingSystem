@@ -1,6 +1,7 @@
 using System;
 using ElectronicRecyclingSystem.Database;
 using ElectronicRecyclingSystem.Domain.Repositories;
+using ElectronicRecyclingSystem.Domain.Services.ElectronicDeviceService;
 using ElectronicRecyclingSystem.Domain.Services.RecyclingApplicationItemService;
 using ElectronicRecyclingSystem.Domain.Services.RecyclingApplicationService;
 using ElectronicRecyclingSystem.Infrastructure.Repositories.ElectronicDevices;
@@ -33,6 +34,7 @@ builder.Services.AddScoped<IRecyclingApplicationItemRepository, RecyclingApplica
 builder.Services.AddScoped<IRecyclingApplicationItemService, RecyclingApplicationItemService>();
 
 builder.Services.AddScoped<IElectronicDeviceRepository, ElectronicDeviceRepository>();
+builder.Services.AddScoped<IElectronicDeviceService, ElectronicDeviceService>();
 
 var app = builder.Build();
 

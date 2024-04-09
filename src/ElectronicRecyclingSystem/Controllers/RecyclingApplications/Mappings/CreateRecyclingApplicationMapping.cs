@@ -1,3 +1,4 @@
+using System;
 using ElectronicRecyclingSystem.Controllers.RecyclingApplications.Models.CreateRecyclingApplication;
 using ElectronicRecyclingSystem.Domain.Models;
 
@@ -9,10 +10,10 @@ public static class CreateRecyclingApplicationMapping
         this CreateRecyclingApplicationRequest request)
     {
         return new RecyclingApplication(
-            Id: request.Id,
+            null,
             UserId: request.UserId,
             Status: RecyclingApplicationStatus.Created,
-            CreatedAtUtc: request.CreatedAtUtc,
-            ClosedAtUtc: request.ClosedAtUtc);
+            CreatedAtUtc: DateTime.Now.ToUniversalTime(), 
+            null);
     }
 }

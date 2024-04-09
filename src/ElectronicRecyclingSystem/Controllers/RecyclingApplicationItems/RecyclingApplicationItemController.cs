@@ -24,7 +24,7 @@ public class RecyclingApplicationItemController : ControllerBase
         CancellationToken cancellationToken)
     {
         var command = request.MapToModel(recyclingApplicationId);
-        var result = await _recyclingApplicationItemService.AddRecyclingApplicationToApplication(
+        var result = await _recyclingApplicationItemService.AddRecyclingApplicationItemToApplication(
             command,
             cancellationToken);
         
@@ -34,5 +34,29 @@ public class RecyclingApplicationItemController : ControllerBase
         }
 
         return BadRequest();
+    }
+    
+    [HttpGet("application-items/{recyclingApplicationItemId:long}")]
+    public async Task<IActionResult> GetRecyclingApplicationItem(
+        [FromRoute] long recyclingApplicationItemId,
+        CancellationToken cancellationToken)
+    {
+        var result = await _recyclingApplicationItemService.GetRecyclingApplicationItem(
+            recyclingApplicationItemId,
+            cancellationToken);
+
+        return Ok(result.MapToResponse());
+    }
+    
+    [HttpGet("applications/{recyclingApplicationId:long}/application-items")]
+    public async Task<IActionResult> GetRecyclingApplicationItems(
+        [FromRoute] long recyclingApplicationId,
+        CancellationToken cancellationToken)
+    {
+        var result = await _recyclingApplicationItemService.GetRecyclingApplicationItems(
+            recyclingApplicationId,
+            cancellationToken);
+
+        return Ok(result.MapToResponse());
     }
 }

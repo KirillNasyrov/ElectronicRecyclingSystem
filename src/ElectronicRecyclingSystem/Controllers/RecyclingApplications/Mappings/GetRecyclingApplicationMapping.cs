@@ -17,7 +17,7 @@ public static class GetRecyclingApplicationMapping
         this RecyclingApplication recyclingApplication)
     {
         return new RecyclingApplicationResponse(
-            Id: recyclingApplication.Id,
+            Id: recyclingApplication.Id ?? 0,
             Status: recyclingApplication.Status.MapToResponse(),
             CreatedAtUtc: recyclingApplication.CreatedAtUtc,
             ClosedAtUtc: recyclingApplication.ClosedAtUtc);

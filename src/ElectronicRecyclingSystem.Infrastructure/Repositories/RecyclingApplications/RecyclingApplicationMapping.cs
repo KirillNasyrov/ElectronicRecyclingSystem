@@ -22,6 +22,11 @@ public static class RecyclingApplicationMapping
         this RecyclingApplication model)
     {
         return new RecyclingApplicationDto
-        {};
+        {
+            UserId = model.UserId,
+            StatusId = (short)model.Status,
+            CreatedAtUtc = model.CreatedAtUtc,
+            ClosedAtUtc = model.ClosedAtUtc
+        };
     }
 }

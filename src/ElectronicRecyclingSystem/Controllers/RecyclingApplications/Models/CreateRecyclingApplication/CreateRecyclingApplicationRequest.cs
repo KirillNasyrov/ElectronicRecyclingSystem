@@ -5,8 +5,4 @@ using ElectronicRecyclingSystem.Domain.Models;
 namespace ElectronicRecyclingSystem.Controllers.RecyclingApplications.Models.CreateRecyclingApplication;
 
 public record CreateRecyclingApplicationRequest(
-    long Id,
-    long UserId,
-    RecyclingApplicationStatusViewModel Status,
-    DateTime CreatedAtUtc,
-    DateTime ClosedAtUtc);
+    long UserId);

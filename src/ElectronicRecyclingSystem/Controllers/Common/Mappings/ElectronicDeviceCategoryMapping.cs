@@ -10,4 +10,10 @@ public static class ElectronicDeviceCategoryMapping
     {
         return (ElectronicDeviceCategory)(short)status;
     }
+    
+    public static ElectronicDeviceCategoryViewModel MapToResponse(
+        this ElectronicDeviceCategory status)
+    {
+        return (ElectronicDeviceCategoryViewModel)(short)status;
+    }
 }

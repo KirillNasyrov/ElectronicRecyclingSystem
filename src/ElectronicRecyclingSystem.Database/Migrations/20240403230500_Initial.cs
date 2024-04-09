@@ -49,7 +49,7 @@ namespace ElectronicRecyclingSystem.Database.Migrations
                     user_id = table.Column<long>(type: "bigint", nullable: false),
                     status_id = table.Column<short>(type: "smallint", nullable: false),
                     created_at_utc = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    closed_at_utc = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    closed_at_utc = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {

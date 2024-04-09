@@ -19,5 +19,5 @@ public class RecyclingApplicationDto
     public DateTime CreatedAtUtc { get; set; }
     
     [Column("closed_at_utc")]
-    public DateTime ClosedAtUtc { get; set; }
+    public DateTime? ClosedAtUtc { get; set; }
 }

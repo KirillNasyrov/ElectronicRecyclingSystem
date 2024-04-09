@@ -1,31 +1,122 @@
 ﻿@page "/create"
+@using ElectronicRecyclingSystem.Client.Contracts.RecyclingApplicationItems.Models
+@using ElectronicRecyclingSystem.Client.Contracts.Common.ElectronicDevices
+@using ElectronicRecyclingSystem.Client.Contracts.ElectronicDevices
+
+@inject HttpClient HttpClient;
 
 <PageTitle>Add</PageTitle>
 
 <h1>Add electronic device</h1>
 
-<div class="input-group mb-3">
-    <label class="input-group-text" for="inputGroupSelect01">category</label>
-    <select class="form-select" id="inputGroupSelect01">
-        <option selected>Choose...</option>
-        <option value="1">Mobile Phones</option>
-        <option value="2">Laptops</option>
-        <option value="3">Cameras</option>
-        <option value="4">Monitors</option>
-        <option value="0">Other</option>
-    </select>
-</div>
+<EditForm EditContext="_editContext">
+    <div class="input-group mb-3">
+        <label class="input-group-text" for="inputGroupSelect01">category</label>
+        <InputSelect class="form-select" id="inputGroupSelect01" @bind-Value="CurrentRequest!.Category">
+            <option selected>Choose...</option>
+            <option value="@ElectronicDeviceCategoryViewModel.MobilePhones">MobilePhones</option>
+            <option value="@ElectronicDeviceCategoryViewModel.Laptops">Laptops</option>
+            <option value="@ElectronicDeviceCategoryViewModel.Cameras">Cameras</option>
+            <option value="@ElectronicDeviceCategoryViewModel.Monitors">Monitors</option>
+            <option value="@ElectronicDeviceCategoryViewModel.Other">Other</option>
+        </InputSelect>
+    </div>
+    
+    <div class="input-group flex-nowrap mb-3">
+        <span class="input-group-text" id="addon-wrapping-model">model</span>
+        <InputText type="text" class="form-control" placeholder="model" aria-label="model" aria-describedby="addon-wrapping"
+                   @bind-Value="@CurrentRequest.Name"/>
+    </div>
+    
+    <div class="input-group flex-nowrap mb-3">
+        <span class="input-group-text" id="addon-wrapping-quantity">quantity</span>
+        <InputNumber type="text" class="form-control" placeholder="quantity" aria-label="quantity" aria-describedby="addon-wrapping"
+                     @bind-Value="@CurrentRequest.Quantity"/>
+    </div>
+    
+    <div class="input-group flex-nowrap mb-3">
+        <button class="btn btn-outline-secondary" type="submit" id="button-addon-add"
+                @onclick="AddRecyclingApplicationItemToApplication">
+            Add Device
+        </button>
+    </div>
+    
+    @for (var i = 0; i < Requests.Count; ++i)
+    {
+        var image = ImageUrls[i] is null ? "Images/NoImage.png" : ImageUrls[i];
+        <div class="col-md-3 mb-2">
+        
+            <div class="card">
+                <img class="img-thumbnail" src="@image" alt="no image">
+                <div class="card-body">
+                    <h5 class="card-title mb-3">
+                        Model: @Requests[i].Name
+                    </h5>
+                    <p class="card-text">
+                        <b>Quantity: @Requests[i].Quantity</b>
+                    </p>
+                </div>
+            </div>
 
-<div class="input-group flex-nowrap mb-3">
-    <span class="input-group-text" id="addon-wrapping-model">model</span>
-    <input type="text" class="form-control" placeholder="model" aria-label="model" aria-describedby="addon-wrapping">
-</div>
-
-<div class="input-group flex-nowrap mb-3">
-    <span class="input-group-text" id="addon-wrapping-quantity">quantity</span>
-    <input type="text" class="form-control" placeholder="quantity" aria-label="quantity" aria-describedby="addon-wrapping">
-</div>
+        </div>
+    }
+    
+    
+    <div class="input-group flex-nowrap mb-3">
+        <button class="btn btn-outline-secondary" type="submit" id="button-addon-create"
+                @onclick="CreateRecyclingApplication">
+            Create Application
+        </button>
+    </div>
+</EditForm>
 
 @code {
+    [SupplyParameterFromForm]
+    private AddRecyclingApplicationItemToApplicationRequest? CurrentRequest { get; set; }
     
+    private EditContext? _editContext;
+
+    private List<AddRecyclingApplicationItemToApplicationRequest> Requests { get; } = [];
+    
+    private List<string?> ImageUrls { get; } = [];
+    
+    protected override void OnInitialized()
+    {
+        CurrentRequest = new AddRecyclingApplicationItemToApplicationRequest
+            ("", ElectronicDeviceCategoryViewModel.Other, 0);
+        
+        _editContext = new EditContext(CurrentRequest);
+    }
+
+    private async Task AddRecyclingApplicationItemToApplication()
+    {
+        var response = await HttpClient.GetAsync($"devices/model?model={CurrentRequest!.Name}");
+        if (response.IsSuccessStatusCode)
+        {
+            var currentElectronicDevice = await response.Content
+                .ReadFromJsonAsync<ElectronicDeviceResponse>();
+            ImageUrls.Add(currentElectronicDevice?.ImageUrl);
+        }
+        else
+        {
+            ImageUrls.Add(null);
+        }
+        
+        Requests.Add(
+            new AddRecyclingApplicationItemToApplicationRequest(CurrentRequest!.Name,
+                CurrentRequest.Category,
+                CurrentRequest.Quantity));
+    }
+
+    private async Task CreateRecyclingApplication()
+    {
+        var response = await HttpClient.PostAsJsonAsync("applications", new { userId = (long)1 });
+        var createdRecyclingApplicationId = await response.Content.ReadFromJsonAsync<long>();
+
+        foreach (var request in Requests)
+        {
+            await HttpClient
+                .PostAsJsonAsync($"applications/{createdRecyclingApplicationId}", request);
+        }
+    }
 }

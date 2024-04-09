@@ -1,3 +1,5 @@
+using System.Collections.Immutable;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using ElectronicRecyclingSystem.Database;
@@ -26,5 +28,27 @@ public class RecyclingApplicationItemRepository : IRecyclingApplicationItemRepos
         await _applicationDbContext.SaveChangesAsync(cancellationToken);
         
         return result.Entity.Id;
+    }
+
+    public async Task<RecyclingApplicationItem> Get(
+        long recyclingApplicationItemId,
+        CancellationToken cancellationToken)
+    {
+        var dto = await _applicationDbContext.RecyclingApplicationItemsDtos
+            .FindAsync([recyclingApplicationItemId], cancellationToken: cancellationToken);
+
+        return dto!.MapToModel();
+    }
+
+    public ImmutableArray<RecyclingApplicationItem> GetAllByApplicationId(
+        long recyclingApplicationId,
+        CancellationToken cancellationToken)
+    {
+        var models = _applicationDbContext.RecyclingApplicationItemsDtos
+            .Where(dto => dto.RecyclingApplicationId == recyclingApplicationId)
+            .Select(dto => dto.MapToModel())
+            .ToImmutableArray();
+
+        return models;
     }
 }

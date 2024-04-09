@@ -5,6 +5,18 @@ namespace ElectronicRecyclingSystem.Infrastructure.Repositories.RecyclingApplica
 
 public static class RecyclingApplicationItemMapping
 {
+    public static RecyclingApplicationItem MapToModel(
+        this RecyclingApplicationItemDto dto)
+    {
+        return new RecyclingApplicationItem
+        (
+            dto.Id,
+            dto.RecyclingApplicationId,
+            dto.ElectronicDeviceId,
+            dto.Quantity
+        );
+    }
+    
     public static RecyclingApplicationItemDto MapToDto(
         this RecyclingApplicationItem model)
     {

@@ -1,6 +1,10 @@
+using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Threading;
 using System.Threading.Tasks;
 using ElectronicRecyclingSystem.Domain.Features.AddRecyclingApplicationItemToApplication;
+using ElectronicRecyclingSystem.Domain.Features.GetRecyclingApplicationItem;
+using ElectronicRecyclingSystem.Domain.Features.GetRecyclingApplicationItems;
 using ElectronicRecyclingSystem.Domain.Models;
 using ElectronicRecyclingSystem.Domain.Repositories;
 
@@ -19,7 +23,7 @@ public class RecyclingApplicationItemService : IRecyclingApplicationItemService
         _electronicDeviceRepository = electronicDeviceRepository;
     }
 
-    public async Task<AddRecyclingApplicationItemToApplicationResult> AddRecyclingApplicationToApplication(
+    public async Task<AddRecyclingApplicationItemToApplicationResult> AddRecyclingApplicationItemToApplication(
         AddRecyclingApplicationItemToApplicationCommand command,
         CancellationToken cancellationToken)
     {
@@ -64,5 +68,38 @@ public class RecyclingApplicationItemService : IRecyclingApplicationItemService
             .Add(recyclingApplicationItemModel, cancellationToken);
         
         return new AddRecyclingApplicationItemToApplicationResult(result);
+    }
+
+    public async Task<GetRecyclingApplicationItemResult> GetRecyclingApplicationItem(
+        long recyclingApplicationItemId,
+        CancellationToken cancellationToken)
+    {
+        var applicationItemModel = await _recyclingApplicationItemRepository
+            .Get(recyclingApplicationItemId, cancellationToken);
+        
+        var electronicDeviceModel = await _electronicDeviceRepository
+            .Get(applicationItemModel.ElectronicDeviceId, cancellationToken);
+
+        return new GetRecyclingApplicationItemResult(applicationItemModel, electronicDeviceModel);
+    }
+
+    public async Task<GetRecyclingApplicationItemsResult> GetRecyclingApplicationItems(
+        long recyclingApplicationId,
+        CancellationToken cancellationToken)
+    {
+        var applicationItemModels = _recyclingApplicationItemRepository
+            .GetAllByApplicationId(recyclingApplicationId, cancellationToken);
+
+        var electronicDeviceModels = new List<ElectronicDevice>();
+        
+        foreach (var itemModel in applicationItemModels)
+        {
+            electronicDeviceModels.Add(await _electronicDeviceRepository
+                .Get(itemModel.ElectronicDeviceId, cancellationToken));
+        }
+
+        return new GetRecyclingApplicationItemsResult(
+            applicationItemModels,
+            electronicDeviceModels.ToImmutableArray());
     }
 }
