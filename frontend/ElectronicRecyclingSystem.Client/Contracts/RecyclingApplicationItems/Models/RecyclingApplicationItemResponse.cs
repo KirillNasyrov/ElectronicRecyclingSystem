@@ -5,4 +5,5 @@ public record RecyclingApplicationItemResponse(
     long RecyclingApplicationId,
     long ElectronicDeviceId,
     int Quantity,
+    string DeviceName,
     string? ImageUrl);

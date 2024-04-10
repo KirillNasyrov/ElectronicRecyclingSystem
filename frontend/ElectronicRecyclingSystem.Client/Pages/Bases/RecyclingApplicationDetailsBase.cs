@@ -1,5 +1,5 @@
 using System;
-using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Threading.Tasks;
 using ElectronicRecyclingSystem.Client.Contracts.RecyclingApplicationItems.Models;
 using ElectronicRecyclingSystem.Client.Contracts.RecyclingApplications.Models.GetRecyclingApplications;
@@ -14,8 +14,9 @@ public class RecyclingApplicationDetailsBase : ComponentBase
     public required IRecyclingApplicationService ApplicationService { get; set; }
     [Parameter]
     public long RecyclingApplicationId { get; set; }
+
     public RecyclingApplicationResponse? Application { get; set; }
-    public List<RecyclingApplicationItemResponse> RecyclingApplicationItems { get; } = [];
+    public ImmutableArray<RecyclingApplicationItemResponse> RecyclingApplicationItems { get; set; } = [];
     public string ErrorMessage { get; set; } = "";
 
     protected override async Task OnInitializedAsync()
@@ -23,6 +24,7 @@ public class RecyclingApplicationDetailsBase : ComponentBase
         try
         {
             Application = await ApplicationService.GetApplication(RecyclingApplicationId);
+            RecyclingApplicationItems = await ApplicationService.GetRecyclingApplicationItem(RecyclingApplicationId);
         }
         catch (Exception e)
         {

@@ -1,28 +1,97 @@
 @page "/applicationdetails/{RecyclingApplicationId:long}"
+@using System.Globalization
+@using ElectronicRecyclingSystem.Client.Components
+@using ElectronicRecyclingSystem.Client.Contracts.RecyclingApplicationItems.Models
 @inherits ElectronicRecyclingSystem.Client.Pages.Bases.RecyclingApplicationDetailsBase
 
-@if (true)
-{
-    <div class="row">
-        <div class="col-md-6 mb-4">
-                   
-        </div>
-        <div class="col-md-6">
-            <h3> @Application?.Id</h3>
-            <p class="mb-4">@Application?.Status</p>
-            <p class="mb-4">
-                <b>
-                    @Application?.CreatedAtUtc
-                </b>
-            </p>
-            <div>
+<div class="container">
+    @if (Application is not null)
+    {
+        <div class="row-cols-1 mb-3">
+            <div class="card">
+                <div class="card-header">
+                    <h2>
+                        <strong> Application № @Application.Id </strong>
+                    </h2>
+                    <p>
+                        from @GetStringDate(Application.CreatedAtUtc)
+                    </p>
+                </div>
+
+                <div class="card-body">
+                    <div>
+                        <p>
+                            paid <small class="h5"> 1337 ₽ </small>
+                        </p>
+                    </div>
+                    <p class="card-text"> Status: @Application.Status</p>
+                    <p class="card-text"> Client: Some guy</p>
+                </div>
             </div>
         </div>
-
+    }
+    <div class="container">
+        @foreach (var recyclingApplicationItem in RecyclingApplicationItems)
+        {
+            <div class="card mb-3" style="max-width: 540px;">
+                <div class="row g-0">
+                    <div class="col-md-4">
+                        @if (recyclingApplicationItem.ImageUrl is null)
+                        {
+                            <img class="img-thumbnail" src="Images/NoImage.png" alt="">
+                        }
+                        else
+                        {
+                            <img class="img-thumbnail" src="@recyclingApplicationItem.ImageUrl" alt="...">
+                        }
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">Model: @recyclingApplicationItem.DeviceName</h5>
+                            <p class="card-text">Quantity: @recyclingApplicationItem.Quantity</p>
+                            <p class="card-text"><small class="text-muted">Last updated 16 mins ago</small></p>
+                            <button type="button" class="btn btn-primary" @onclick="() => OpenItemDetailsDialog(recyclingApplicationItem)">
+                                Check out
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
     </div>
+
+</div>
+
+
+
+@if (DialogOpen)
+{ 
+    <RecyclingApplicationItemDetails OnClose="@OnDeleteDialogClose" RecyclingApplicationItem="PickedItem">
+    </RecyclingApplicationItemDetails>
 }
+
 
 @code
 {
+    private bool DialogOpen { get; set; }
+    private RecyclingApplicationItemResponse PickedItem { get; set; } = null!;
+
+    private void OnDeleteDialogClose(bool accepted)
+    {
+        DialogOpen = false;
+        StateHasChanged();
+    }
     
+    private void OpenItemDetailsDialog(RecyclingApplicationItemResponse item)
+    {
+        PickedItem = item;
+        DialogOpen = true;
+        StateHasChanged();
+    }
+    
+    
+    string GetStringDate(DateTime dateTime)
+    {
+        return $"{dateTime.Day} of {dateTime.ToString("MMMM", new CultureInfo("en-US"))}";
+    }
 }
