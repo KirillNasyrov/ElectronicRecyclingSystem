@@ -20,6 +20,7 @@ public static class GetRecyclingApplicationMapping
             Id: recyclingApplication.Id ?? 0,
             Status: recyclingApplication.Status.MapToResponse(),
             CreatedAtUtc: recyclingApplication.CreatedAtUtc,
-            ClosedAtUtc: recyclingApplication.ClosedAtUtc);
+            ClosedAtUtc: recyclingApplication.ClosedAtUtc,
+            recyclingApplication.Price);
     }
 }

@@ -11,4 +11,7 @@ public class ApplicationDbContext(DbContextOptions options) : DbContext(options)
     
     public required DbSet<RecyclingApplicationStatusDto> RecyclingApplicationStatusDtos { get; set; }
     public required DbSet<ElectronicDevicesCategoryDto> ElectronicDevicesCategoryDtos { get; set; }
+    public required DbSet<CommentDto> CommentDtos { get; set; }
+    public required DbSet<UserDto> UserDtos { get; set; }
+    public required DbSet<UserRoleDto> UserRoleDtos { get; set; }
 }

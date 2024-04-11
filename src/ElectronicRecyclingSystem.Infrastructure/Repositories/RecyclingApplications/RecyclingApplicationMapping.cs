@@ -14,7 +14,8 @@ public static class RecyclingApplicationMapping
             UserId: dto.UserId,
             Status: (RecyclingApplicationStatus)dto.StatusId,
             CreatedAtUtc: dto.CreatedAtUtc,
-            ClosedAtUtc: dto.ClosedAtUtc
+            ClosedAtUtc: dto.ClosedAtUtc,
+            Price: dto.Price
         );
     }
 

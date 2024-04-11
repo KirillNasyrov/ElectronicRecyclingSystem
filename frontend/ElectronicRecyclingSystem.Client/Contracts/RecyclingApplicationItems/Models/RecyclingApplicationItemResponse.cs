@@ -6,4 +6,5 @@ public record RecyclingApplicationItemResponse(
     long ElectronicDeviceId,
     int Quantity,
     string DeviceName,
-    string? ImageUrl);
+    string? ImageUrl,
+    decimal? Price);

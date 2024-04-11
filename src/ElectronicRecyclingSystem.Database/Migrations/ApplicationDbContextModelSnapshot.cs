@@ -22,79 +22,35 @@ namespace ElectronicRecyclingSystem.Database.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("ElectronicRecyclingSystem.Database.Models.RecyclingApplicationDto", b =>
+            modelBuilder.Entity("ElectronicRecyclingSystem.Database.Models.CommentDto", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
-                        .HasColumnName("recycling_application_id");
+                        .HasColumnName("id");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
 
-                    b.Property<DateTime>("ClosedAtUtc")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("closed_at_utc");
-
-                    b.Property<DateTime>("CreatedAtUtc")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("created_at_utc");
-
-                    b.Property<short>("StatusId")
-                        .HasColumnType("smallint")
-                        .HasColumnName("status_id");
-
-                    b.Property<long>("UserId")
-                        .HasColumnType("bigint")
-                        .HasColumnName("user_id");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("recycling_applications");
-                });
-
-            modelBuilder.Entity("ElectronicRecyclingSystem.Database.Models.RecyclingApplicationItemDto", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<long>("RecyclingApplicationItemId")
                         .HasColumnType("bigint")
                         .HasColumnName("recycling_application_item_id");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
-
-                    b.Property<long>("RecyclingApplicationId")
+                    b.Property<long>("SenderId")
                         .HasColumnType("bigint")
-                        .HasColumnName("recycling_application_id");
+                        .HasColumnName("user_id");
 
-                    b.Property<long>("ElectronicDeviceId")
-                        .HasColumnType("bigint")
-                        .HasColumnName("electronic_device_id");
+                    b.Property<DateTime>("SentAt")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("sent_at");
 
-                    b.Property<int>("Quantity")
-                        .HasColumnType("integer")
-                        .HasColumnName("quantity");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("recycling_application_items");
-                });
-
-            modelBuilder.Entity("ElectronicRecyclingSystem.Database.Models.RecyclingApplicationStatusDto", b =>
-                {
-                    b.Property<short>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("smallint")
-                        .HasColumnName("id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<short>("Id"));
-
-                    b.Property<string>("Name")
+                    b.Property<string>("Text")
                         .IsRequired()
                         .HasColumnType("text")
-                        .HasColumnName("name");
+                        .HasColumnName("test");
 
                     b.HasKey("Id");
 
-                    b.ToTable("recycling_application_statuses");
+                    b.ToTable("comments");
                 });
 
             modelBuilder.Entity("ElectronicRecyclingSystem.Database.Models.ElectronicDeviceDto", b =>
@@ -115,6 +71,7 @@ namespace ElectronicRecyclingSystem.Database.Migrations
                         .HasColumnName("image_url");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("electronic_device_name");
 
@@ -140,6 +97,145 @@ namespace ElectronicRecyclingSystem.Database.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("electronic_devices_categories");
+                });
+
+            modelBuilder.Entity("ElectronicRecyclingSystem.Database.Models.RecyclingApplicationDto", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasColumnName("recycling_application_id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<DateTime?>("ClosedAtUtc")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("closed_at_utc");
+
+                    b.Property<DateTime>("CreatedAtUtc")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_at_utc");
+
+                    b.Property<decimal?>("Price")
+                        .HasColumnType("numeric")
+                        .HasColumnName("price");
+
+                    b.Property<short>("StatusId")
+                        .HasColumnType("smallint")
+                        .HasColumnName("status_id");
+
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("user_id");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("recycling_applications");
+                });
+
+            modelBuilder.Entity("ElectronicRecyclingSystem.Database.Models.RecyclingApplicationItemDto", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasColumnName("recycling_application_item_id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("ElectronicDeviceId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("electronic_device_id");
+
+                    b.Property<decimal?>("Price")
+                        .HasColumnType("numeric")
+                        .HasColumnName("price");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer")
+                        .HasColumnName("quantity");
+
+                    b.Property<long>("RecyclingApplicationId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("recycling_application_id");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("recycling_application_items");
+                });
+
+            modelBuilder.Entity("ElectronicRecyclingSystem.Database.Models.RecyclingApplicationStatusDto", b =>
+                {
+                    b.Property<short>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("smallint")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<short>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("recycling_application_statuses");
+                });
+
+            modelBuilder.Entity("ElectronicRecyclingSystem.Database.Models.UserDto", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<long>("Email")
+                        .HasColumnType("bigint")
+                        .HasColumnName("email");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("name");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("password");
+
+                    b.Property<short>("RoleId")
+                        .HasColumnType("smallint")
+                        .HasColumnName("role_id");
+
+                    b.Property<string>("Surname")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("surname");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("users");
+                });
+
+            modelBuilder.Entity("ElectronicRecyclingSystem.Database.Models.UserRoleDto", b =>
+                {
+                    b.Property<short>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("smallint")
+                        .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<short>("Id"));
+
+                    b.Property<string>("Role")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("role");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("user_roles");
                 });
 #pragma warning restore 612, 618
         }

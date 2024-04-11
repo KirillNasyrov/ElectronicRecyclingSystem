@@ -3,6 +3,7 @@ using System.Collections.Immutable;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
+using ElectronicRecyclingSystem.Client.Contracts.Comments;
 using ElectronicRecyclingSystem.Client.Contracts.RecyclingApplicationItems.Models;
 using ElectronicRecyclingSystem.Client.Contracts.RecyclingApplications.Models.GetRecyclingApplications;
 
@@ -61,5 +62,13 @@ public class RecyclingApplicationService : IRecyclingApplicationService
             Console.WriteLine(e);
             throw;
         }
+    }
+
+    public async Task<ImmutableArray<CommentResponse>> GetCommentsByApplicationItem(long applicationItemId)
+    {
+        var response = await _httpClient.GetAsync($"application-items/{applicationItemId}/comments");
+        var comments = await response.Content
+            .ReadFromJsonAsync<GetCommentsByRecyclingApplicationItemResponse>();
+        return comments!.Comments;
     }
 }

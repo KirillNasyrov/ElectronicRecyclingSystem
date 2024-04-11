@@ -48,7 +48,8 @@ public class RecyclingApplicationItemService : IRecyclingApplicationItemService
                 null,
                 command.RecyclingApplicationId,
                 electronicDeviceId,
-                command.Quantity
+                command.Quantity,
+                null
             );
 
             result = await _recyclingApplicationItemRepository
@@ -61,7 +62,8 @@ public class RecyclingApplicationItemService : IRecyclingApplicationItemService
             null,
             command.RecyclingApplicationId,
             existingElectronicDevice.Id ?? 0,
-            command.Quantity
+            command.Quantity,
+            null
         );
         
         result = await _recyclingApplicationItemRepository

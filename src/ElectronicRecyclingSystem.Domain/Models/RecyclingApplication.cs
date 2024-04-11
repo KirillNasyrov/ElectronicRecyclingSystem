@@ -7,4 +7,5 @@ public record RecyclingApplication(
     long UserId,
     RecyclingApplicationStatus Status,
     DateTime CreatedAtUtc,
-    DateTime? ClosedAtUtc);
+    DateTime? ClosedAtUtc,
+    decimal? Price);

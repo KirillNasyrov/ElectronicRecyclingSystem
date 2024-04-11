@@ -1,4 +1,4 @@
-@using ElectronicRecyclingSystem.Client.Contracts.RecyclingApplicationItems.Models
+@inherits ElectronicRecyclingSystem.Client.Components.Bases.RecyclingApplicationItemDetailsBase
 ﻿<div class="modal fade show" id="myModal" style="display:block; background-color: rgba(10,10,10,.8);" aria-modal="true" role="dialog">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
@@ -7,8 +7,54 @@
                 <button type="button" class="close" @onclick="@ModalCancel">&times;</button>
             </div>
             <div class="modal-body">
-                <p> @RecyclingApplicationItem.DeviceName </p>
-            </div>
+                @{
+                    var image = RecyclingApplicationItem.ImageUrl ?? "Images/NoImage.png";
+                }
+                <div class="row mb-2">
+
+                    <div class="card">
+                        <img class="img-thumbnail" src="@image" alt="no image">
+                        <div class="card-body">
+                            <h5 class="card-title mb-3">
+                                Model: @RecyclingApplicationItem.DeviceName
+                            </h5>
+                            <p class="card-text">
+                                <b>Quantity: @RecyclingApplicationItem.Quantity</b>
+                            </p>
+                            @if (RecyclingApplicationItem.Price is not null)
+                            {
+                                <p class="card-text">
+                                    <b>Price: @RecyclingApplicationItem.Price</b>
+                                </p>
+                            }
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="list-group">
+                    @if (Comments is not null)
+                    {
+                        @foreach (var comment in Comments)
+                        {
+                            <div class="list-group-item list-group-item-action">
+
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1">@comment.Name @comment.Surname</h5>
+                                    <small>@comment.SentAt</small>
+                                </div>
+                                <p class="mb-1">@comment.Text</p>
+                            </div>
+
+
+                        }
+                    }
+                    
+                </div>
+
+
+
+                </div>
             <div class="modal-footer">
                 <button type="button" class="close" @onclick="@ModalOk"> OK </button>
             </div>
@@ -18,11 +64,8 @@
 
 @code {
      [Parameter]
-     public RecyclingApplicationItemResponse RecyclingApplicationItem { get; set; } = null!;
-
-     [Parameter]
      public EventCallback<bool> OnClose { get; set; }
-
+     
      private Task ModalCancel()
      {
          return OnClose.InvokeAsync(false);

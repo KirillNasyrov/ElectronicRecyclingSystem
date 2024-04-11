@@ -1,6 +1,8 @@
 @page "/applicationdetails/{RecyclingApplicationId:long}"
+@using System.Collections.Immutable
 @using System.Globalization
 @using ElectronicRecyclingSystem.Client.Components
+@using ElectronicRecyclingSystem.Client.Contracts.Comments
 @using ElectronicRecyclingSystem.Client.Contracts.RecyclingApplicationItems.Models
 @inherits ElectronicRecyclingSystem.Client.Pages.Bases.RecyclingApplicationDetailsBase
 
@@ -93,5 +95,10 @@
     string GetStringDate(DateTime dateTime)
     {
         return $"{dateTime.Day} of {dateTime.ToString("MMMM", new CultureInfo("en-US"))}";
+    }
+
+    async Task<ImmutableArray<CommentResponse>> GetComments()
+    {
+        return await ApplicationService.GetCommentsByApplicationItem(PickedItem.Id);
     }
 }

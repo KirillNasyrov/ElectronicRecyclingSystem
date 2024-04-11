@@ -10,7 +10,7 @@ namespace ElectronicRecyclingSystem.Database.Migrations;
 [Migration("20240403231000_InsertStatusesAndCategories")]
 partial class InsertStatusesAndCategories : Migration
 {
-    /// <inheritdoc />
+        /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618

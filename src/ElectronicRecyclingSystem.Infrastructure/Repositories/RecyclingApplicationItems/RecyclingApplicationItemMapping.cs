@@ -13,7 +13,8 @@ public static class RecyclingApplicationItemMapping
             dto.Id,
             dto.RecyclingApplicationId,
             dto.ElectronicDeviceId,
-            dto.Quantity
+            dto.Quantity,
+            dto.Price
         );
     }
     

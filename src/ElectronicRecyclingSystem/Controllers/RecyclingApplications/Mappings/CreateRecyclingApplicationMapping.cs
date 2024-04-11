@@ -14,6 +14,7 @@ public static class CreateRecyclingApplicationMapping
             UserId: request.UserId,
             Status: RecyclingApplicationStatus.Created,
             CreatedAtUtc: DateTime.Now.ToUniversalTime(), 
+            null,
             null);
     }
 }

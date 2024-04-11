@@ -11,5 +11,6 @@ public record RecyclingApplicationResponse(
     long Id,
     RecyclingApplicationStatusViewModel Status,
     DateTime CreatedAtUtc,
-    DateTime? ClosedAtUtc
+    DateTime? ClosedAtUtc,
+    decimal? Proce
 );

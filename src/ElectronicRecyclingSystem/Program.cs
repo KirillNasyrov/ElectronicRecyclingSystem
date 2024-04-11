@@ -1,12 +1,15 @@
 using System;
 using ElectronicRecyclingSystem.Database;
 using ElectronicRecyclingSystem.Domain.Repositories;
+using ElectronicRecyclingSystem.Domain.Services.CommentService;
 using ElectronicRecyclingSystem.Domain.Services.ElectronicDeviceService;
 using ElectronicRecyclingSystem.Domain.Services.RecyclingApplicationItemService;
 using ElectronicRecyclingSystem.Domain.Services.RecyclingApplicationService;
+using ElectronicRecyclingSystem.Infrastructure.Repositories.Comments;
 using ElectronicRecyclingSystem.Infrastructure.Repositories.ElectronicDevices;
 using ElectronicRecyclingSystem.Infrastructure.Repositories.RecyclingApplicationItems;
 using ElectronicRecyclingSystem.Infrastructure.Repositories.RecyclingApplications;
+using ElectronicRecyclingSystem.Infrastructure.Repositories.Users;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -35,6 +38,11 @@ builder.Services.AddScoped<IRecyclingApplicationItemService, RecyclingApplicatio
 
 builder.Services.AddScoped<IElectronicDeviceRepository, ElectronicDeviceRepository>();
 builder.Services.AddScoped<IElectronicDeviceService, ElectronicDeviceService>();
+
+builder.Services.AddScoped<ICommentRepository, CommentRepository>();
+builder.Services.AddScoped<ICommentService, CommentService>();
+
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 var app = builder.Build();
 

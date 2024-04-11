@@ -16,4 +16,6 @@ public class RecyclingApplicationItemDto
     
     [Column("quantity")]
     public int Quantity { get; set; }
+    [Column("price")]
+    public decimal? Price { get; set; }
 }

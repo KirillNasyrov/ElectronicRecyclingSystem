@@ -14,6 +14,7 @@ public static class GetRecyclingApplicationItemMapping
             result.ElectronicDevice.Id ?? 0,
             result.RecyclingApplicationItem.Quantity,
             result.ElectronicDevice.Name,
-            result.ElectronicDevice.ImageUrl);
+            result.ElectronicDevice.ImageUrl,
+            result.RecyclingApplicationItem.Price);
     }
 }

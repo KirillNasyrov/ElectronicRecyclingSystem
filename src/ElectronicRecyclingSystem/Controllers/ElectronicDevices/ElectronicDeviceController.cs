@@ -35,4 +35,13 @@ public class ElectronicDeviceController : ControllerBase
         var result = await _electronicDeviceService.GetElectronicDevice(model, cancellationToken);
         return result.MapToResponse();
     }
+    
+    [HttpPost]
+    public async Task<ElectronicDeviceResponse> AddElectronicDevice(
+        long id,
+        CancellationToken cancellationToken)
+    {
+        var result = await _electronicDeviceService.GetElectronicDevice(id, cancellationToken);
+        return result.MapToResponse();
+    }
 }

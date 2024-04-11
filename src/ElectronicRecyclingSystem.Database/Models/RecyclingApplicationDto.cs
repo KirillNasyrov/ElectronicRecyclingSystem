@@ -20,4 +20,6 @@ public class RecyclingApplicationDto
     
     [Column("closed_at_utc")]
     public DateTime? ClosedAtUtc { get; set; }
+    [Column("price")]
+    public decimal? Price { get; set; }
 }

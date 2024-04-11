@@ -53,4 +53,20 @@ public class RecyclingApplicationController : ControllerBase
         var result = await _recyclingApplicationService.GetRecyclingApplicationAsync(id, cancellationToken);
         return result.MapToResponse();
     }
+    
+    [HttpPut("{id:long}")]
+    public async Task<IActionResult> UpdateRecyclingApplication(
+        [FromRoute] long id,
+        [FromBody] CreateRecyclingApplicationRequest request,
+        CancellationToken cancellationToken)
+    {
+        var command = request.MapToModel();
+        var result = await _recyclingApplicationService.CreateRecyclingApplicationAsync(command, cancellationToken);
+        if (result.IsSuccess)
+        {
+            return Ok(result.RecyclingApplicationId);
+        }
+
+        return BadRequest();
+    }
 }
