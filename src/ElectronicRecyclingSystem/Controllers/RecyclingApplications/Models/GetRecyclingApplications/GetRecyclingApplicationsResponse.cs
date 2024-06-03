@@ -12,5 +12,5 @@ public record RecyclingApplicationResponse(
     RecyclingApplicationStatusViewModel Status,
     DateTime CreatedAtUtc,
     DateTime? ClosedAtUtc,
-    decimal? Proce
+    decimal? Price
 );

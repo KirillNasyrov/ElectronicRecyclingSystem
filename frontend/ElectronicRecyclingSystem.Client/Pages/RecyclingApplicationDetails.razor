@@ -21,11 +21,14 @@
                 </div>
 
                 <div class="card-body">
-                    <div>
-                        <p>
-                            paid <small class="h5"> 1337 ₽ </small>
-                        </p>
-                    </div>
+                    @if (Application.Price is not null)
+                    {
+                        <div>
+                            <p>
+                                paid <small class="h5"> @Application.Price ₽ </small>
+                            </p>
+                        </div>
+                    }
                     <p class="card-text"> Status: @Application.Status</p>
                     <p class="card-text"> Client: Some guy</p>
                 </div>

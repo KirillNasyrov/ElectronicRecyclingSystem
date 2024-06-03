@@ -21,6 +21,6 @@ public static class GetRecyclingApplicationMapping
             Status: recyclingApplication.Status.MapToResponse(),
             CreatedAtUtc: recyclingApplication.CreatedAtUtc,
             ClosedAtUtc: recyclingApplication.ClosedAtUtc,
-            recyclingApplication.Price);
+            Price: recyclingApplication.Price);
     }
 }
