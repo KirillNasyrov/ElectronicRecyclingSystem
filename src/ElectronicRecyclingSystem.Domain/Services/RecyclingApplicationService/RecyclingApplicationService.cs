@@ -5,16 +5,21 @@ using ElectronicRecyclingSystem.Domain.Features.GetRecyclingApplication;
 using ElectronicRecyclingSystem.Domain.Features.GetRecyclingApplications;
 using ElectronicRecyclingSystem.Domain.Models;
 using ElectronicRecyclingSystem.Domain.Repositories;
+using ElectronicRecyclingSystem.Domain.Repositories.RedisRepositories;
 
 namespace ElectronicRecyclingSystem.Domain.Services.RecyclingApplicationService;
 
 public class RecyclingApplicationService : IRecyclingApplicationService
 {
     private readonly IRecyclingApplicationRepository _recyclingApplicationRepository;
+    private readonly IRecyclingApplicationCacheRepository _recyclingApplicationCacheRepository;
 
-    public RecyclingApplicationService(IRecyclingApplicationRepository recyclingApplicationRepository)
+    public RecyclingApplicationService(
+        IRecyclingApplicationRepository recyclingApplicationRepository,
+        IRecyclingApplicationCacheRepository recyclingApplicationCacheRepository)
     {
         _recyclingApplicationRepository = recyclingApplicationRepository;
+        _recyclingApplicationCacheRepository = recyclingApplicationCacheRepository;
     }
 
     public async Task<GetRecyclingApplicationsResult> GetRecyclingApplicationsAsync(
@@ -31,7 +36,16 @@ public class RecyclingApplicationService : IRecyclingApplicationService
         long id,
         CancellationToken cancellationToken)
     {
+        var cachedRecyclingApplication = await _recyclingApplicationCacheRepository.Get(id, cancellationToken);
+        
+        if (cachedRecyclingApplication is not null)
+        {
+            return new GetRecyclingApplicationResult(cachedRecyclingApplication);
+        }
+        
         var recyclingApplication = await _recyclingApplicationRepository.Get(id, cancellationToken);
+        await _recyclingApplicationCacheRepository.Add(recyclingApplication, cancellationToken);
+        
         return new GetRecyclingApplicationResult(recyclingApplication);
     }
     
@@ -40,6 +54,8 @@ public class RecyclingApplicationService : IRecyclingApplicationService
         CancellationToken cancellationToken)
     {
         var result = await _recyclingApplicationRepository.Add(recyclingApplication, cancellationToken);
+        await _recyclingApplicationCacheRepository.Add(recyclingApplication, cancellationToken);
+        
         return new CreateRecyclingApplicationResult(result);
     }
 }
