@@ -10,6 +10,7 @@ using ElectronicRecyclingSystem.Infrastructure.Repositories.ElectronicDevices;
 using ElectronicRecyclingSystem.Infrastructure.Repositories.RecyclingApplicationItems;
 using ElectronicRecyclingSystem.Infrastructure.Repositories.RecyclingApplications;
 using ElectronicRecyclingSystem.Infrastructure.Repositories.Users;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -43,6 +44,11 @@ builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 builder.Services.AddScoped<ICommentService, CommentService>();
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+
+builder.Services.AddAuthentication("Cookies");
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options => options.LoginPath = "/login");
+builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
