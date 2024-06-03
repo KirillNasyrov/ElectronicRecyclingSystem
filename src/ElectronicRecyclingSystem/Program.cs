@@ -1,6 +1,7 @@
 using System;
 using ElectronicRecyclingSystem.Database;
 using ElectronicRecyclingSystem.Domain.Repositories;
+using ElectronicRecyclingSystem.Domain.Repositories.RedisRepositories;
 using ElectronicRecyclingSystem.Domain.Services.CommentService;
 using ElectronicRecyclingSystem.Domain.Services.ElectronicDeviceService;
 using ElectronicRecyclingSystem.Domain.Services.RecyclingApplicationItemService;
@@ -9,6 +10,7 @@ using ElectronicRecyclingSystem.Infrastructure.Repositories.Comments;
 using ElectronicRecyclingSystem.Infrastructure.Repositories.ElectronicDevices;
 using ElectronicRecyclingSystem.Infrastructure.Repositories.RecyclingApplicationItems;
 using ElectronicRecyclingSystem.Infrastructure.Repositories.RecyclingApplications;
+using ElectronicRecyclingSystem.Infrastructure.Repositories.RedisRepositories;
 using ElectronicRecyclingSystem.Infrastructure.Repositories.Users;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
@@ -25,10 +27,17 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var connectionString = builder.Configuration.GetConnectionString("PostgresConnectionString") ??
+var connectionStringPostgres = builder.Configuration.GetConnectionString("PostgresConnectionString") ??
                        throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
-builder.Services.AddPostgres(connectionString);
+var connectionStringRedis = builder.Configuration.GetConnectionString("RedisConnectionString") ??
+                               throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+
+builder.Services
+    .AddDatabaseConnectionStrings(builder.Configuration);
+
+builder.Services.AddPostgres(connectionStringPostgres);
+builder.Services.AddRedis(connectionStringRedis);
 
 builder.Services.AddScoped<IRecyclingApplicationService, RecyclingApplicationService>();
 builder.Services.AddScoped<IRecyclingApplicationRepository, RecyclingApplicationRepository>();
@@ -43,6 +52,8 @@ builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 builder.Services.AddScoped<ICommentService, CommentService>();
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+
+builder.Services.AddScoped<IRecyclingApplicationCacheRepository, RecyclingApplicationCacheRepository>();
 
 var app = builder.Build();
 

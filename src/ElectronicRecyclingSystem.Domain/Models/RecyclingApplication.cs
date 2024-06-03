@@ -8,4 +8,13 @@ public record RecyclingApplication(
     RecyclingApplicationStatus Status,
     DateTime CreatedAtUtc,
     DateTime? ClosedAtUtc,
-    decimal? Price);
+    decimal? Price)
+{
+    public RecyclingApplication() : this(
+        default, 
+        default, 
+        default, 
+        default, 
+        default, 
+        default) { }
+}
